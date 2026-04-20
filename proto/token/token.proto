@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package token;
+
+option go_package = "github.com/GoSMRiST/protosGaz/gen/go/token;token";
+
+service Token {
+  rpc ValidateToken (ValidateTokenRequest) returns (ValidateTokenResponse);
+}
+
+message ValidateTokenRequest {
+  string token = 1;
+}
+
+message ValidateTokenResponse {
+  int64 user_id = 1;
+}
