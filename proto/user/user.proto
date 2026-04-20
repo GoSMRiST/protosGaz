@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package user;
 
+import "google/protobuf/timestamp.proto";
+
 option go_package = "github.com/GoSMRiST/protosGaz/gen/go/user;user";
 
 service User {
@@ -9,10 +11,15 @@ service User {
 }
 
 message GetUserRequest {
-  string author = 1;
-  string title = 2;
+  int64 user_id = 1;
 }
 
 message GetUserResponse {
-  bool result = 1;
+  int64 user_id = 1;
+  string nickname = 2;
+  string email = 3;
+  google.protobuf.Timestamp birth_date = 4;
+  string gender = 5;
+  string avatar_url = 6;
+  int64 meetings_count = 7;
 }

@@ -9,6 +9,7 @@ package user
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
@@ -23,8 +24,7 @@ const (
 
 type GetUserRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Author        string                 `protobuf:"bytes,1,opt,name=author,proto3" json:"author,omitempty"`
-	Title         string                 `protobuf:"bytes,2,opt,name=title,proto3" json:"title,omitempty"`
+	UserId        int64                  `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -59,23 +59,22 @@ func (*GetUserRequest) Descriptor() ([]byte, []int) {
 	return file_user_user_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *GetUserRequest) GetAuthor() string {
+func (x *GetUserRequest) GetUserId() int64 {
 	if x != nil {
-		return x.Author
+		return x.UserId
 	}
-	return ""
-}
-
-func (x *GetUserRequest) GetTitle() string {
-	if x != nil {
-		return x.Title
-	}
-	return ""
+	return 0
 }
 
 type GetUserResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Result        bool                   `protobuf:"varint,1,opt,name=result,proto3" json:"result,omitempty"`
+	UserId        int64                  `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	Nickname      string                 `protobuf:"bytes,2,opt,name=nickname,proto3" json:"nickname,omitempty"`
+	Email         string                 `protobuf:"bytes,3,opt,name=email,proto3" json:"email,omitempty"`
+	BirthDate     *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=birth_date,json=birthDate,proto3" json:"birth_date,omitempty"`
+	Gender        string                 `protobuf:"bytes,5,opt,name=gender,proto3" json:"gender,omitempty"`
+	AvatarUrl     string                 `protobuf:"bytes,6,opt,name=avatar_url,json=avatarUrl,proto3" json:"avatar_url,omitempty"`
+	MeetingsCount int64                  `protobuf:"varint,7,opt,name=meetings_count,json=meetingsCount,proto3" json:"meetings_count,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -110,23 +109,72 @@ func (*GetUserResponse) Descriptor() ([]byte, []int) {
 	return file_user_user_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *GetUserResponse) GetResult() bool {
+func (x *GetUserResponse) GetUserId() int64 {
 	if x != nil {
-		return x.Result
+		return x.UserId
 	}
-	return false
+	return 0
+}
+
+func (x *GetUserResponse) GetNickname() string {
+	if x != nil {
+		return x.Nickname
+	}
+	return ""
+}
+
+func (x *GetUserResponse) GetEmail() string {
+	if x != nil {
+		return x.Email
+	}
+	return ""
+}
+
+func (x *GetUserResponse) GetBirthDate() *timestamppb.Timestamp {
+	if x != nil {
+		return x.BirthDate
+	}
+	return nil
+}
+
+func (x *GetUserResponse) GetGender() string {
+	if x != nil {
+		return x.Gender
+	}
+	return ""
+}
+
+func (x *GetUserResponse) GetAvatarUrl() string {
+	if x != nil {
+		return x.AvatarUrl
+	}
+	return ""
+}
+
+func (x *GetUserResponse) GetMeetingsCount() int64 {
+	if x != nil {
+		return x.MeetingsCount
+	}
+	return 0
 }
 
 var File_user_user_proto protoreflect.FileDescriptor
 
 const file_user_user_proto_rawDesc = "" +
 	"\n" +
-	"\x0fuser/user.proto\x12\x04user\">\n" +
-	"\x0eGetUserRequest\x12\x16\n" +
-	"\x06author\x18\x01 \x01(\tR\x06author\x12\x14\n" +
-	"\x05title\x18\x02 \x01(\tR\x05title\")\n" +
-	"\x0fGetUserResponse\x12\x16\n" +
-	"\x06result\x18\x01 \x01(\bR\x06result2>\n" +
+	"\x0fuser/user.proto\x12\x04user\x1a\x1fgoogle/protobuf/timestamp.proto\")\n" +
+	"\x0eGetUserRequest\x12\x17\n" +
+	"\auser_id\x18\x01 \x01(\x03R\x06userId\"\xf5\x01\n" +
+	"\x0fGetUserResponse\x12\x17\n" +
+	"\auser_id\x18\x01 \x01(\x03R\x06userId\x12\x1a\n" +
+	"\bnickname\x18\x02 \x01(\tR\bnickname\x12\x14\n" +
+	"\x05email\x18\x03 \x01(\tR\x05email\x129\n" +
+	"\n" +
+	"birth_date\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\tbirthDate\x12\x16\n" +
+	"\x06gender\x18\x05 \x01(\tR\x06gender\x12\x1d\n" +
+	"\n" +
+	"avatar_url\x18\x06 \x01(\tR\tavatarUrl\x12%\n" +
+	"\x0emeetings_count\x18\a \x01(\x03R\rmeetingsCount2>\n" +
 	"\x04User\x126\n" +
 	"\aGetUser\x12\x14.user.GetUserRequest\x1a\x15.user.GetUserResponseB0Z.github.com/GoSMRiST/protosGaz/gen/go/user;userb\x06proto3"
 
@@ -144,17 +192,19 @@ func file_user_user_proto_rawDescGZIP() []byte {
 
 var file_user_user_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_user_user_proto_goTypes = []any{
-	(*GetUserRequest)(nil),  // 0: user.GetUserRequest
-	(*GetUserResponse)(nil), // 1: user.GetUserResponse
+	(*GetUserRequest)(nil),        // 0: user.GetUserRequest
+	(*GetUserResponse)(nil),       // 1: user.GetUserResponse
+	(*timestamppb.Timestamp)(nil), // 2: google.protobuf.Timestamp
 }
 var file_user_user_proto_depIdxs = []int32{
-	0, // 0: user.User.GetUser:input_type -> user.GetUserRequest
-	1, // 1: user.User.GetUser:output_type -> user.GetUserResponse
-	1, // [1:2] is the sub-list for method output_type
-	0, // [0:1] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	2, // 0: user.GetUserResponse.birth_date:type_name -> google.protobuf.Timestamp
+	0, // 1: user.User.GetUser:input_type -> user.GetUserRequest
+	1, // 2: user.User.GetUser:output_type -> user.GetUserResponse
+	2, // [2:3] is the sub-list for method output_type
+	1, // [1:2] is the sub-list for method input_type
+	1, // [1:1] is the sub-list for extension type_name
+	1, // [1:1] is the sub-list for extension extendee
+	0, // [0:1] is the sub-list for field type_name
 }
 
 func init() { file_user_user_proto_init() }
