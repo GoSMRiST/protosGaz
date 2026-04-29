@@ -23,6 +23,7 @@ message GetUserResponse {
   string gender = 5;
   string avatar_url = 6;
   int64 meetings_count = 7;
+  string subscription = 8;
 }
 
 message UpdateSubscriptionRequest {

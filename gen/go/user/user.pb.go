@@ -75,6 +75,7 @@ type GetUserResponse struct {
 	Gender        string                 `protobuf:"bytes,5,opt,name=gender,proto3" json:"gender,omitempty"`
 	AvatarUrl     string                 `protobuf:"bytes,6,opt,name=avatar_url,json=avatarUrl,proto3" json:"avatar_url,omitempty"`
 	MeetingsCount int64                  `protobuf:"varint,7,opt,name=meetings_count,json=meetingsCount,proto3" json:"meetings_count,omitempty"`
+	Subscription  string                 `protobuf:"bytes,8,opt,name=subscription,proto3" json:"subscription,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -156,6 +157,13 @@ func (x *GetUserResponse) GetMeetingsCount() int64 {
 		return x.MeetingsCount
 	}
 	return 0
+}
+
+func (x *GetUserResponse) GetSubscription() string {
+	if x != nil {
+		return x.Subscription
+	}
+	return ""
 }
 
 type UpdateSubscriptionRequest struct {
@@ -260,7 +268,7 @@ const file_user_user_proto_rawDesc = "" +
 	"\n" +
 	"\x0fuser/user.proto\x12\x04user\x1a\x1fgoogle/protobuf/timestamp.proto\")\n" +
 	"\x0eGetUserRequest\x12\x17\n" +
-	"\auser_id\x18\x01 \x01(\x03R\x06userId\"\xf5\x01\n" +
+	"\auser_id\x18\x01 \x01(\x03R\x06userId\"\x99\x02\n" +
 	"\x0fGetUserResponse\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\x03R\x06userId\x12\x1a\n" +
 	"\bnickname\x18\x02 \x01(\tR\bnickname\x12\x14\n" +
@@ -270,7 +278,8 @@ const file_user_user_proto_rawDesc = "" +
 	"\x06gender\x18\x05 \x01(\tR\x06gender\x12\x1d\n" +
 	"\n" +
 	"avatar_url\x18\x06 \x01(\tR\tavatarUrl\x12%\n" +
-	"\x0emeetings_count\x18\a \x01(\x03R\rmeetingsCount\"X\n" +
+	"\x0emeetings_count\x18\a \x01(\x03R\rmeetingsCount\x12\"\n" +
+	"\fsubscription\x18\b \x01(\tR\fsubscription\"X\n" +
 	"\x19UpdateSubscriptionRequest\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\x03R\x06userId\x12\"\n" +
 	"\fsubscription\x18\x02 \x01(\tR\fsubscription\"@\n" +
