@@ -8,6 +8,7 @@ option go_package = "github.com/GoSMRiST/protosGaz/gen/go/user;user";
 
 service User {
   rpc GetUser (GetUserRequest) returns (GetUserResponse);
+  rpc UpdateSubscription (UpdateSubscriptionRequest) returns (UpdateSubscriptionResponse);
 }
 
 message GetUserRequest {
@@ -22,4 +23,13 @@ message GetUserResponse {
   string gender = 5;
   string avatar_url = 6;
   int64 meetings_count = 7;
+}
+
+message UpdateSubscriptionRequest {
+  int64 user_id = 1;
+  string subscription = 2;
+}
+
+message UpdateSubscriptionResponse {
+  string subscription = 1;
 }
